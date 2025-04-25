@@ -8,23 +8,26 @@ use Tests\DuskTestCase;
 
 class RegisterTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+    
     /**
      * Test case untuk registrasi pengguna baru
+     * @group Register
      */
-    public function tesRegist(): void 
+    public function testRegist(): void 
     {
-        $this->browse(function (Browser $browser) { // Memulai test browser dengan callback function
-            $browser->visit('/') // Mengunjungi halaman utama website
-            ->assertSee('Register') // Memastikan teks 'Register' terlihat di halaman
-            ->clickLink(link: 'Register') // Mengklik tautan 'Register'
-            ->assertPathIs(path: '/Register') // Memastikan berada di halaman registrasi
-            ->type(field: 'Name', value: 'Admin') // Memasukkan nama ke kolom nama
-            ->type(field: ' Email', value: 'admin@gmail.com') // Memasukkan email ke kolom email
-            ->type(field: 'Password', value: 'password') // Memasukkan password ke kolom password
-            ->type(field: 'Confirm Password', value: 'password') // Memasukkan konfirmasi password
-            ->Press(Button: 'REGISTER') // Mengklik tombol register
-            ->Pause(2000) // Menunggu 2 detik untuk memuat halaman
-            ->assertPathIs(path: '/dashboard'); // Memastikan diarahkan ke dashboard
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                    ->assertSee('Register')
+                    ->clickLink('Register')
+                    ->assertPathIs('/register')
+                    ->type('name', 'Admin')
+                    ->type('email', 'admin@gmail.com')
+                    ->type('password', 'password')
+                    ->type('password_confirmation', 'password')
+                    ->press('Register')
+                    ->pause(2000)
+                    ->assertPathIs('/dashboard');
         });
     }
 }

@@ -26,12 +26,18 @@ class ViewNotesTest extends DuskTestCase
                     ->assertSee('Note') // Memastikan teks 'Note' terlihat di halaman
                     ->clickLink('Note') // Mengklik tautan 'Note'
                     ->assertPathIs('/notes') // Memastikan berada di halaman notes
-                    ->assertSee('My Notes') // Memastikan judul halaman terlihat
-                    ->assertSee('Create Note') // Memastikan tombol Create Note terlihat
-                    ->assertSee('Title') // Memastikan kolom Title terlihat
-                    ->assertSee('Description') // Memastikan kolom Description terlihat
-                    ->assertSee('Action') // Memastikan kolom Action terlihat
-                    ->pause(2000); // Menunggu 2 detik untuk memuat data
+                    ->assertSee('View') // Memastikan tombol View terlihat
+                    ->clickLink('View') // Mengklik tombol View pada catatan
+                    ->pause(2000) // Menunggu 2 detik untuk memuat halaman
+                    ->assertPathIs('/view-note') // Memastikan berada di halaman detail catatan
+                    ->assertSee('Note Detail') // Memastikan judul halaman detail terlihat
+                    ->assertSee('Title') // Memastikan label Title terlihat
+                    ->assertSee('Description') // Memastikan label Description terlihat
+                    ->assertPresent('.note-title') // Memastikan elemen judul catatan ada
+                    ->assertPresent('.note-description') // Memastikan elemen deskripsi catatan ada
+                    ->assertSee('Back') // Memastikan tombol Back terlihat
+                    ->clickLink('Back') // Mengklik tombol Back
+                    ->assertPathIs('/notes'); // Memastikan kembali ke halaman notes
         });
     }
 }

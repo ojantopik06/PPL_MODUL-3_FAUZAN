@@ -32,6 +32,7 @@ class MakeNotesTest extends DuskTestCase
                     ->type('Title', 'Catatan Test') // Memasukkan judul catatan
                     ->type('Description', 'Ini adalah isi catatan test') // Memasukkan isi catatan
                     ->press('CREATE') // Mengklik tombol CREATE
+                    ->pause(2000) // Menunggu 2 detik untuk memuat halaman
                     ->Pause(2000) // Menunggu 2 detik untuk memuat halaman
                     ->assertPathIs(path: '/notes'); // Memastikan diarahkan ke halaman notes
         });
